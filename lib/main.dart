@@ -1,4 +1,5 @@
 import 'package:blogclub/data.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
@@ -36,6 +37,12 @@ class MyApp extends StatelessWidget {
             fontFamily: defaultFontFamily,
             color: secondaryTextColor,
           ),
+          bodyLarge: TextStyle(
+            fontFamily: defaultFontFamily,
+            fontWeight: FontWeight.w700,
+            fontSize: 18,
+            color: Colors.white,
+          ),
         ),
       ),
       home: const HomeScreen(),
@@ -50,6 +57,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
     final stories = AppDatabase.stories;
+    final categories = AppDatabase.categories;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -81,6 +89,8 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               _StoryList(stories: stories, themeData: themeData),
+              SizedBox(height: 16),
+              _CategoryList(categories: categories, themeData: themeData),
             ],
           ),
         ),
@@ -89,12 +99,94 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class _StoryList extends StatelessWidget {
-  const _StoryList({
-    //super.key,
-    required this.stories,
+class _CategoryList extends StatelessWidget {
+  const _CategoryList({
+    super.key,
+    required this.categories,
     required this.themeData,
   });
+
+  final List<Category> categories;
+  final ThemeData themeData;
+
+  @override
+  Widget build(BuildContext context) {
+    return CarouselSlider.builder(
+      itemCount: categories.length,
+      itemBuilder: (context, index, realIndex) {
+        final category = categories[realIndex];
+        return _CategoryItem(category: category, themeData: themeData);
+      },
+      options: CarouselOptions(
+        scrollDirection: Axis.horizontal,
+        viewportFraction: 0.8,
+        aspectRatio: 1.2,
+        scrollPhysics: BouncingScrollPhysics(),
+        disableCenter: true,
+        enableInfiniteScroll: false,
+        enlargeCenterPage: true,
+      ),
+    );
+  }
+}
+
+class _CategoryItem extends StatelessWidget {
+  const _CategoryItem({
+    super.key,
+    required this.category,
+    required this.themeData,
+  });
+
+  final Category category;
+  final ThemeData themeData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Positioned(
+          top: 100,
+          left: 65,
+          right: 65,
+          bottom: 22,
+          child: Container(
+            decoration: BoxDecoration(
+              boxShadow: [BoxShadow(color: Color(0xff0D253C), blurRadius: 20)],
+            ),
+          ),
+        ),
+        Positioned.fill(
+          child: Container(
+            //margin: EdgeInsets.all(8),
+            foregroundDecoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(32),
+              gradient: LinearGradient(
+                colors: [Color(0xff0D253C), Colors.transparent],
+                begin: Alignment.bottomCenter,
+                end: Alignment.center,
+              ),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(32),
+              child: Image.asset(
+                'assets/img/posts/large/${category.imageFileName}',
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          left: 42,
+          bottom: 48,
+          child: Text(category.title, style: themeData.textTheme.bodyLarge),
+        ),
+      ],
+    );
+  }
+}
+
+class _StoryList extends StatelessWidget {
+  const _StoryList({super.key, required this.stories, required this.themeData});
 
   final List<StoryData> stories;
   final ThemeData themeData;
@@ -119,11 +211,7 @@ class _StoryList extends StatelessWidget {
 }
 
 class _Story extends StatelessWidget {
-  const _Story({
-    //super.key,
-    required this.story,
-    required this.themeData,
-  });
+  const _Story({super.key, required this.story, required this.themeData});
 
   final StoryData story;
   final ThemeData themeData;
