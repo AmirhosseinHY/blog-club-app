@@ -20,7 +20,6 @@ class MyApp extends StatelessWidget {
     final secondaryTextColor = Color(0xff2D4379);
     final primaryColor = Color(0xff376AED);
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
         textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
@@ -76,9 +75,20 @@ class MyApp extends StatelessWidget {
             fontSize: 14,
             color: primaryTextColor,
           ),
+          bodySmall: TextStyle(
+            fontFamily: defaultFontFamily,
+            fontWeight: FontWeight.w700,
+            fontSize: 10,
+            color: Color(0xff7B8BB2),
+          ),
         ),
       ),
-      home: const HomeScreen(),
+      home: Stack(
+        children: [
+          HomeScreen(),
+          Positioned(bottom: 0, right: 0, left: 0, child: _BottomNavigation()),
+        ],
+      ),
     );
   }
 }
@@ -139,7 +149,7 @@ class HomeScreen extends StatelessWidget {
 
 class _CategoryList extends StatelessWidget {
   const _CategoryList({
-    super.key,
+    //super.key,
     required this.categories,
     required this.themeData,
   });
@@ -170,7 +180,7 @@ class _CategoryList extends StatelessWidget {
 
 class _CategoryItem extends StatelessWidget {
   const _CategoryItem({
-    super.key,
+    //super.key,
     required this.category,
     required this.themeData,
   });
@@ -222,7 +232,11 @@ class _CategoryItem extends StatelessWidget {
 }
 
 class _StoryList extends StatelessWidget {
-  const _StoryList({super.key, required this.stories, required this.themeData});
+  const _StoryList({
+    //super.key,
+    required this.stories,
+    required this.themeData,
+  });
 
   final List<StoryData> stories;
   final ThemeData themeData;
@@ -247,7 +261,11 @@ class _StoryList extends StatelessWidget {
 }
 
 class _Story extends StatelessWidget {
-  const _Story({super.key, required this.story, required this.themeData});
+  const _Story({
+    //super.key,
+    required this.story,
+    required this.themeData,
+  });
 
   final StoryData story;
   final ThemeData themeData;
@@ -328,7 +346,11 @@ class _Story extends StatelessWidget {
 }
 
 class _PostList extends StatelessWidget {
-  const _PostList({super.key, required this.posts, required this.themeData});
+  const _PostList({
+    //super.key,
+    required this.posts,
+    required this.themeData,
+  });
 
   final List<PostData> posts;
   final ThemeData themeData;
@@ -364,7 +386,11 @@ class _PostList extends StatelessWidget {
 }
 
 class _Post extends StatelessWidget {
-  const _Post({super.key, required this.post, required this.themeData});
+  const _Post({
+    //super.key,
+    required this.post,
+    required this.themeData,
+  });
 
   final PostData post;
   final ThemeData themeData;
@@ -434,6 +460,92 @@ class _Post extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _BottomNavigation extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 105,
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 85,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 20,
+                    color: Color(0xff9B8487).withAlpha(76),
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _BottomNavigationItem(
+                    iconFileName: 'Home.png',
+                    title: 'Home',
+                  ),
+                  _BottomNavigationItem(
+                    iconFileName: 'Articles.png',
+                    title: 'Articles',
+                  ),
+                  SizedBox(width: 8),
+                  _BottomNavigationItem(
+                    iconFileName: 'Search.png',
+                    title: 'Search',
+                  ),
+                  _BottomNavigationItem(
+                    iconFileName: 'Menu.png',
+                    title: 'Menu',
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              width: 65,
+              height: 65,
+              decoration: BoxDecoration(
+                color: Color(0xff376AED),
+                borderRadius: BorderRadius.circular(32.5),
+                border: Border.all(color: Colors.white, width: 4),
+              ),
+              child: Image.asset('assets/img/icons/plus.png'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _BottomNavigationItem extends StatelessWidget {
+  const _BottomNavigationItem({
+    //super.key,
+    required this.iconFileName,
+    required this.title,
+  });
+
+  final String iconFileName;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset('assets/img/icons/$iconFileName'),
+        SizedBox(height: 4),
+        Text(title, style: Theme.of(context).textTheme.bodySmall),
+      ],
     );
   }
 }
