@@ -1,4 +1,6 @@
 import 'package:blogclub/data.dart';
+import 'package:blogclub/gen/assets.gen.dart';
+import 'package:blogclub/gen/fonts.gen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,10 +11,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  static const defaultFontFamily = 'Avenir';
-
   const MyApp({super.key});
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,7 @@ class MyApp extends StatelessWidget {
           style: ButtonStyle(
             textStyle: WidgetStateProperty.all(
               TextStyle(
-                fontFamily: defaultFontFamily,
+                fontFamily: FontFamily.avenir,
                 fontWeight: FontWeight.w400,
                 fontSize: 14,
                 color: primaryColor,
@@ -35,48 +34,48 @@ class MyApp extends StatelessWidget {
         ),
         textTheme: TextTheme(
           titleLarge: TextStyle(
-            fontFamily: defaultFontFamily,
+            fontFamily: FontFamily.avenir,
             fontWeight: FontWeight.w700,
             fontSize: 24,
             color: primaryTextColor,
           ),
           titleMedium: TextStyle(
-            fontFamily: defaultFontFamily,
+            fontFamily: FontFamily.avenir,
             fontWeight: FontWeight.w200,
             fontSize: 18,
             color: secondaryTextColor,
           ),
           bodyMedium: TextStyle(
-            fontFamily: defaultFontFamily,
+            fontFamily: FontFamily.avenir,
             fontSize: 12,
             color: secondaryTextColor,
           ),
           bodyLarge: TextStyle(
-            fontFamily: defaultFontFamily,
+            fontFamily: FontFamily.avenir,
             fontWeight: FontWeight.w700,
             fontSize: 18,
             color: Colors.white,
           ),
           headlineMedium: TextStyle(
-            fontFamily: defaultFontFamily,
+            fontFamily: FontFamily.avenir,
             fontWeight: FontWeight.w700,
             fontSize: 20,
             color: primaryTextColor,
           ),
           headlineSmall: TextStyle(
-            fontFamily: defaultFontFamily,
+            fontFamily: FontFamily.avenir,
             fontWeight: FontWeight.w700,
             fontSize: 14,
-            color: Color(0xff376AED),
+            color: primaryColor,
           ),
           titleSmall: TextStyle(
-            fontFamily: defaultFontFamily,
+            fontFamily: FontFamily.avenir,
             fontWeight: FontWeight.w400,
             fontSize: 14,
             color: primaryTextColor,
           ),
           bodySmall: TextStyle(
-            fontFamily: defaultFontFamily,
+            fontFamily: FontFamily.avenir,
             fontWeight: FontWeight.w700,
             fontSize: 10,
             color: Color(0xff7B8BB2),
@@ -118,11 +117,7 @@ class HomeScreen extends StatelessWidget {
                       'Hi, Jonathan!',
                       style: themeData.textTheme.titleMedium,
                     ),
-                    Image.asset(
-                      'assets/img/icons/notification.png',
-                      height: 32,
-                      width: 32,
-                    ),
+                    Assets.img.icons.notification.image(height: 32, width: 32),
                   ],
                 ),
               ),
@@ -518,7 +513,7 @@ class _BottomNavigation extends StatelessWidget {
                 borderRadius: BorderRadius.circular(32.5),
                 border: Border.all(color: Colors.white, width: 4),
               ),
-              child: Image.asset('assets/img/icons/plus.png'),
+              child: Assets.img.icons.plus.image(),
             ),
           ),
         ],
