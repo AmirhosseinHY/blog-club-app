@@ -1,5 +1,5 @@
 import 'package:blogclub/gen/assets.gen.dart';
-import 'package:blogclub/home.dart';
+import 'package:blogclub/onboarding.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,9 +13,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(Duration(seconds: 2)).then((value) {
-      Navigator.of(
-        context,
-      ).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => OnBoardingScreen()),
+      );
     });
     super.initState();
   }

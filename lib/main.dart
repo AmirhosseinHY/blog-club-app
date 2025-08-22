@@ -9,6 +9,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -17,6 +18,12 @@ class MyApp extends StatelessWidget {
     final primaryColor = Color(0xff376AED);
     return MaterialApp(
       theme: ThemeData(
+        colorScheme: ColorScheme.light(
+          primary: primaryColor,
+          onPrimary: Colors.white,
+          surface: Colors.white,
+          onSurface: primaryTextColor,
+        ),
         textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
             textStyle: WidgetStateProperty.all(
@@ -77,6 +84,12 @@ class MyApp extends StatelessWidget {
             fontSize: 10,
             color: Color(0xff7B8BB2),
           ),
+          displaySmall: TextStyle(
+            fontFamily: FontFamily.avenir,
+            fontWeight: FontWeight.w200,
+            fontSize: 16,
+            color: secondaryTextColor,
+          ),
         ),
       ),
       // home: Stack(
@@ -89,8 +102,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
 
 class _BottomNavigation extends StatelessWidget {
   @override
