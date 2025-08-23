@@ -285,7 +285,7 @@ class _PostList extends StatelessWidget {
           shrinkWrap: true,
           itemBuilder: (context, index) {
             final post = posts[index];
-            return _Post(post: post, themeData: themeData);
+            return Post(post: post, themeData: themeData);
           },
         ),
       ],
@@ -293,12 +293,8 @@ class _PostList extends StatelessWidget {
   }
 }
 
-class _Post extends StatelessWidget {
-  const _Post({
-    //super.key,
-    required this.post,
-    required this.themeData,
-  });
+class Post extends StatelessWidget {
+  const Post({super.key, required this.post, required this.themeData});
 
   final PostData post;
   final ThemeData themeData;
@@ -316,7 +312,10 @@ class _Post extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
-            child: Image.asset('assets/img/posts/small/${post.imageFileName}'),
+            child: Image.asset(
+              'assets/img/posts/small/${post.imageFileName}',
+              width: 120,
+            ),
           ),
           //SizedBox(width: 16),
           Expanded(

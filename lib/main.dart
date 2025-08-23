@@ -1,7 +1,6 @@
-import 'package:blogclub/article.dart';
 import 'package:blogclub/gen/assets.gen.dart';
 import 'package:blogclub/gen/fonts.gen.dart';
-import 'package:blogclub/splash.dart';
+import 'package:blogclub/profile.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -33,6 +32,7 @@ class MyApp extends StatelessWidget {
           onPrimary: Colors.white,
           surface: Colors.white,
           onSurface: primaryTextColor,
+          onSecondary: Colors.black,
         ),
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.white,
@@ -119,7 +119,7 @@ class MyApp extends StatelessWidget {
       //     Positioned(bottom: 0, right: 0, left: 0, child: _BottomNavigation()),
       //   ],
       // ),
-      home: ArticleScreen(),
+      home: ProfileScreen(),
     );
   }
 }
