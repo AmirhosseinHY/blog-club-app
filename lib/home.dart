@@ -1,3 +1,4 @@
+import 'package:blogclub/article.dart';
 import 'package:blogclub/data.dart';
 import 'package:blogclub/gen/assets.gen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -325,7 +326,10 @@ class Post extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(post.caption, style: themeData.textTheme.headlineSmall),
+                  Text(
+                    post.caption,
+                    style: themeData.textTheme.headlineSmall,
+                  ),
                   SizedBox(height: 8),
                   Text(post.title, style: themeData.textTheme.titleSmall),
                   SizedBox(height: 16),

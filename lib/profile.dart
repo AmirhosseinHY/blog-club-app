@@ -248,7 +248,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   for (int i = 0; i < posts.length; i++)
                     Post(post: posts[i], themeData: themeData),
-                  SizedBox(height: 16),
+                  SizedBox(height: 40),
                 ],
               ),
             ),

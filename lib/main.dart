@@ -1,5 +1,7 @@
+import 'package:blogclub/article.dart';
 import 'package:blogclub/gen/assets.gen.dart';
 import 'package:blogclub/gen/fonts.gen.dart';
+import 'package:blogclub/home.dart';
 import 'package:blogclub/profile.dart';
 import 'package:flutter/material.dart';
 
@@ -119,12 +121,83 @@ class MyApp extends StatelessWidget {
       //     Positioned(bottom: 0, right: 0, left: 0, child: _BottomNavigation()),
       //   ],
       // ),
-      home: ProfileScreen(),
+      home: MainScreen(),
+    );
+  }
+}
+
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+const homeIndex = 0;
+const articleIndex = 1;
+const searchIndex = 2;
+const menuIndex = 3;
+
+class _MainScreenState extends State<MainScreen> {
+  int selectedScreenIndex = homeIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Positioned.fill(
+            bottom: 65,
+            child: IndexedStack(
+              index: selectedScreenIndex,
+              children: [
+                HomeScreen(),
+                ArticleScreen(),
+                SearchScreen(),
+                ProfileScreen(),
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: _BottomNavigation(
+              onTapp: (int index) {
+                setState(() {
+                  selectedScreenIndex = index;
+                });
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SearchScreen extends StatelessWidget {
+  const SearchScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Search Screen',
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
     );
   }
 }
 
 class _BottomNavigation extends StatelessWidget {
+  const _BottomNavigation({
+    //super.key,
+    required this.onTapp,
+  });
+
+  final Function(int index) onTapp;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -147,22 +220,26 @@ class _BottomNavigation extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _BottomNavigationItem(
+                  BottomNavigationItem(
                     iconFileName: 'Home.png',
                     title: 'Home',
+                    onTap: () => onTapp(homeIndex),
                   ),
-                  _BottomNavigationItem(
+                  BottomNavigationItem(
                     iconFileName: 'Articles.png',
                     title: 'Articles',
+                    onTap: () => onTapp(articleIndex),
                   ),
-                  SizedBox(width: 8),
-                  _BottomNavigationItem(
+                  Expanded(child: SizedBox()),
+                  BottomNavigationItem(
                     iconFileName: 'Search.png',
                     title: 'Search',
+                    onTap: () => onTapp(searchIndex),
                   ),
-                  _BottomNavigationItem(
+                  BottomNavigationItem(
                     iconFileName: 'Menu.png',
                     title: 'Menu',
+                    onTap: () => onTapp(menuIndex),
                   ),
                 ],
               ),
@@ -187,25 +264,32 @@ class _BottomNavigation extends StatelessWidget {
   }
 }
 
-class _BottomNavigationItem extends StatelessWidget {
-  const _BottomNavigationItem({
-    //super.key,
+class BottomNavigationItem extends StatelessWidget {
+  const BottomNavigationItem({
+    super.key,
     required this.iconFileName,
     required this.title,
+    required this.onTap,
   });
 
   final String iconFileName;
   final String title;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset('assets/img/icons/$iconFileName'),
-        SizedBox(height: 4),
-        Text(title, style: Theme.of(context).textTheme.bodySmall),
-      ],
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/img/icons/$iconFileName'),
+            SizedBox(height: 4),
+            Text(title, style: Theme.of(context).textTheme.bodySmall),
+          ],
+        ),
+      ),
     );
   }
 }
