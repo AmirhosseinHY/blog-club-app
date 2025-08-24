@@ -151,10 +151,22 @@ class _MainScreenState extends State<MainScreen> {
             child: IndexedStack(
               index: selectedScreenIndex,
               children: [
-                HomeScreen(),
-                ArticleScreen(),
-                SearchScreen(),
-                ProfileScreen(),
+                Offstage(
+                  offstage: selectedScreenIndex != homeIndex,
+                  child: HomeScreen(),
+                ),
+                Offstage(
+                  offstage: selectedScreenIndex != articleIndex,
+                  child: ArticleScreen(),
+                ),
+                Offstage(
+                  offstage: selectedScreenIndex != searchIndex,
+                  child: SearchScreen(),
+                ),
+                Offstage(
+                  offstage: selectedScreenIndex != menuIndex,
+                  child: ProfileScreen(),
+                ),
               ],
             ),
           ),
