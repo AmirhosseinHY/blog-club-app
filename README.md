@@ -37,4 +37,4 @@ The design is based on the following **Dribbble UI Kit**, and the main pages hav
 ## 🚀 How to Run
 1. Clone the repository or download the project files:
    ```bash
-   git clone <https://github.com/AmirhosseinHY/blog-club-app.git>
+   git clone https://github.com/AmirhosseinHY/blog-club-app.git
